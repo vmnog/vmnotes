@@ -23,8 +23,17 @@ export default function Card({ data, index }) {
     accept: "CARD",
     // item = qual card está sendo arrastado, monitor = monitora os eventos
     hover(item, monitor) {
-      console.log(item.index); // posicao  na lista do item sendo arrastado
-      console.log(index); // posicao futura do item atual na nova lista
+      const draggedIndex = item.index; // card sendo arrastado
+      const targetIndex = index; // qual é o alvo que sofrerá alteracoes na posicao da lista
+
+      // se arrastar o item pro mesmo lugar que ele estava antes ele nao faz nada
+      if (draggedIndex === targetIndex) {
+        return;
+      }
+
+      const targetSize = ref.current.getBoundingClientRect();
+
+      console.log(targetSize);
     }
   });
 
