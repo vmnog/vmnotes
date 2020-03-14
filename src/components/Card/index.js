@@ -1,10 +1,13 @@
-import React, { useRef } from "react";
+import React, { useRef, useContext } from "react";
 import { useDrag, useDrop } from "react-dnd";
 
 import { Container, Label } from "./styles";
 
+import BoardContext from "../Board/context";
+
 export default function Card({ data, index }) {
   const ref = useRef();
+  const { move } = useContext(BoardContext);
 
   // o monitor atribui o valor da funcao isDragging que vem do parametro, e type "CARD" pois todo item tem que ter um type unico
   const [{ isDragging }, dragRef] = useDrag({
@@ -50,7 +53,8 @@ export default function Card({ data, index }) {
         return;
       }
 
-      console.log("aprovado");
+      // calling function from BoardContext using Card's data
+      move(draggedIndex, targetIndex);
     }
   });
 
