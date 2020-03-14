@@ -5,15 +5,17 @@ import { Container, Label } from "./styles";
 
 import BoardContext from "../Board/context";
 
-export default function Card({ data, index }) {
+export default function Card({ data, index, listIndex }) {
   const ref = useRef();
   const { move } = useContext(BoardContext);
 
   // o monitor atribui o valor da funcao isDragging que vem do parametro, e type "CARD" pois todo item tem que ter um type unico
   const [{ isDragging }, dragRef] = useDrag({
+    // informacoes que precisam ser passadas para que o item quando for arrastado mantenha as informacoes
     item: {
       type: "CARD",
-      index
+      index,
+      listIndex
     },
     collect: monitor => ({
       isDragging: monitor.isDragging()
@@ -26,11 +28,17 @@ export default function Card({ data, index }) {
     accept: "CARD",
     // item = qual card está sendo arrastado, monitor = monitora os eventos
     hover(item, monitor) {
+      const draggedListIndex = item.listIndex;
+      const targetListIndex = listIndex;
+
       const draggedIndex = item.index; // card sendo arrastado
       const targetIndex = index; // qual é o alvo que sofrerá alteracoes na posicao da lista
 
       // se arrastar o item pro mesmo lugar que ele estava antes ele nao faz nada
-      if (draggedIndex === targetIndex) {
+      if (
+        draggedIndex === targetIndex &&
+        draggedListIndex === targetListIndex
+      ) {
         return;
       }
 
@@ -43,18 +51,20 @@ export default function Card({ data, index }) {
       // calcs the empty space that it has when we drag an item out of the list
       const draggedTop = draggedOffset.y - targetSize.top;
 
-      // se um item que esta antes do target tentar ser arrastado pra antes do target
       if (draggedIndex < targetIndex && draggedTop < targetCenter) {
         return;
       }
 
-      // se um item que esta depois do target tentar ser arrastado pra depois do target
       if (draggedIndex > targetIndex && draggedTop > targetCenter) {
         return;
       }
 
       // calling function from BoardContext using Card's data
-      move(draggedIndex, targetIndex);
+      move(draggedListIndex, targetListIndex, draggedIndex, targetIndex);
+
+      // mudando a propriedade de index assim que o item é arrastado para evitar "flick"
+      item.index = targetIndex;
+      item.listIndex = targetListIndex;
     }
   });
 
@@ -65,11 +75,11 @@ export default function Card({ data, index }) {
     <Container ref={ref} isDragging={isDragging}>
       <header>
         {data.labels.map(label => (
-          <Label color={label} key={label} />
+          <Label key={label} color={label} />
         ))}
       </header>
       <p>{data.content}</p>
-      {data.user && <img src={data.user} alt="avatar" />}
+      {data.user && <img src={data.user} alt="" />}
     </Container>
   );
 }

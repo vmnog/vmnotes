@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import produce from "immer";
 import { loadLists } from "../../services/api";
 import BoardContext from "./context";
 
@@ -11,8 +12,23 @@ const data = loadLists();
 export default function Board() {
   const [lists, setLists] = useState(data);
 
-  function move(from, to) {
-    console.log(from, to);
+  function move(fromList, toList, from, to) {
+    console.log(fromList, toList, from, to);
+    // immer permite que façamos mudanças no state de forma mais limpa
+    // com immer nao precisamos criar um "newList, setNewList"
+
+    //produce gera um draft que é uma copia de lists onde podemos alterar e vai colocar o valor no state
+    setLists(
+      produce(lists, draft => {
+        const dragged = draft[fromList].cards[from];
+
+        // removendo o item que está sendo arrasto da lista (onde fica o dashed border)
+        draft[fromList].cards.splice(from, 1);
+
+        // na posicao "to", coloca antes, o item que está sendo arrastado
+        draft[toList].cards.splice(to, 0, dragged);
+      })
+    );
   }
 
   return (
@@ -21,7 +37,7 @@ export default function Board() {
     <BoardContext.Provider value={{ lists, move }}>
       <Container>
         {lists.map((list, index) => (
-          <List key={index} data={list} />
+          <List key={list.title} index={index} data={list} />
         ))}
       </Container>
     </BoardContext.Provider>
