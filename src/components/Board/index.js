@@ -13,7 +13,6 @@ export default function Board() {
   const [lists, setLists] = useState(data);
 
   function move(fromList, toList, from, to) {
-    console.log(fromList, toList, from, to);
     // immer permite que façamos mudanças no state de forma mais limpa
     // com immer nao precisamos criar um "newList, setNewList"
 
