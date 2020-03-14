@@ -1,4 +1,5 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+// o { css } serve pra quando queremos utilizar multiplos css baseado numa condicao
 
 export const Container = styled.div`
   position: relative;
@@ -26,6 +27,25 @@ export const Container = styled.div`
     height: 24px;
     border-radius: 2px;
   }
+
+  ${props =>
+    props.isDragging &&
+    css`
+      /* deixa uma borda dashed no lugar do card */
+      border: 2px dashed rgba(0, 0, 0, 0.2);
+      padding-top: 31px;
+
+      background: transparent;
+      box-shadow: none;
+      cursor: grabbing;
+
+      /* some o card que fica na lista, mas continua com a borda dashed */
+      p,
+      img,
+      header {
+        opacity: 0;
+      }
+    `}
 `;
 
 export const Label = styled.span`
