@@ -31,9 +31,26 @@ export default function Card({ data, index }) {
         return;
       }
 
-      const targetSize = ref.current.getBoundingClientRect();
+      const targetSize = ref.current.getBoundingClientRect(); // returns the items dimension and position
+      const targetCenter = (targetSize.bottom - targetSize.top) / 2; // returns the items horizontal middle
 
-      console.log(targetSize);
+      // returns how much did the item moved from the original position
+      const draggedOffset = monitor.getClientOffset();
+
+      // calcs the empty space that it has when we drag an item out of the list
+      const draggedTop = draggedOffset.y - targetSize.top;
+
+      // se um item que esta antes do target tentar ser arrastado pra antes do target
+      if (draggedIndex < targetIndex && draggedTop < targetCenter) {
+        return;
+      }
+
+      // se um item que esta depois do target tentar ser arrastado pra depois do target
+      if (draggedIndex > targetIndex && draggedTop > targetCenter) {
+        return;
+      }
+
+      console.log("aprovado");
     }
   });
 
