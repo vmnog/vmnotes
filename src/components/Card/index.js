@@ -3,14 +3,14 @@ import { useDrag, useDrop } from "react-dnd";
 
 import { Container, Label } from "./styles";
 
-export default function Card({ data }) {
+export default function Card({ data, index }) {
   const ref = useRef();
 
   // o monitor atribui o valor da funcao isDragging que vem do parametro, e type "CARD" pois todo item tem que ter um type unico
   const [{ isDragging }, dragRef] = useDrag({
     item: {
       type: "CARD",
-      id: data.id
+      index
     },
     collect: monitor => ({
       isDragging: monitor.isDragging()
@@ -23,8 +23,8 @@ export default function Card({ data }) {
     accept: "CARD",
     // item = qual card está sendo arrastado, monitor = monitora os eventos
     hover(item, monitor) {
-      console.log(item.id);
-      console.log(data.id);
+      console.log(item.index); // posicao  na lista do item sendo arrastado
+      console.log(index); // posicao futura do item atual na nova lista
     }
   });
 
