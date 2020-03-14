@@ -8,20 +8,21 @@ export function loadLists() {
           id: 1,
           content: "Estudar módulo 01 de NodeJS",
           labels: ["#7159c1"],
-          user: "https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/profile.png"
+          user: "https://api.adorable.io/avatars/400/abott@adorable.io.png"
         },
         {
           id: 2,
           content:
             "Criar vídeo para o Youtube ensinando a recriar a interface do Pipefy",
           labels: ["#7159c1"],
-          user: "https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/profile.png"
+          user: "https://api.adorable.io/avatars/400/abott@adorable.io.png"
         },
         {
           id: 3,
           content: "Estudar módulo 03 de React Native",
           labels: ["#7159c1"],
-          user: "https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/profile.png"
+          user:
+            "https://avatars2.githubusercontent.com/u/43258815?s=460&u=8df2d2f9be63e8fdda18c1161a7a5d9329cff0dc&v=4"
         },
         {
           id: 4,
@@ -34,7 +35,8 @@ export function loadLists() {
           id: 5,
           content: "Gravar testes e deploy ReactJS",
           labels: ["#54e1f7"],
-          user: "https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/profile.png"
+          user:
+            "https://avatars2.githubusercontent.com/u/43258815?s=460&u=8df2d2f9be63e8fdda18c1161a7a5d9329cff0dc&v=4"
         }
       ]
     },
@@ -58,13 +60,13 @@ export function loadLists() {
           id: 7,
           content: "Gravar sobre Geolocalização e mapas com React Native",
           labels: ["#7159c1"],
-          user: "https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/profile.png"
+          user: "https://api.adorable.io/avatars/400/abott@adorable.io.png"
         },
         {
           id: 8,
           content: "Gravar testes e deploy ReactJS",
           labels: ["#54e1f7"],
-          user: "https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/profile.png"
+          user: "https://api.adorable.io/avatars/400/abott@adorable.io.png"
         },
         {
           id: 9,
